@@ -28,7 +28,6 @@ export class AuthController {
 
   @Post('login')
   async login(@Req() req: Request, @Body() data: AuthDto) {
-    console.log('123');
     const tokens = await this.authService.login(data);
 
     this.authCookieService.setTokensToCookies(req.res, tokens);
