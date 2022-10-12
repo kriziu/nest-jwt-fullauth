@@ -66,7 +66,10 @@ export class AuthService {
       refreshToken,
     );
 
-    if (!isRefreshTokenValid) throw new ForbiddenException('Access Denied');
+    if (!isRefreshTokenValid) {
+      await this.logout(userId);
+      throw new ForbiddenException('Access Denied');
+    }
 
     const tokens = await this.getTokens(userId, user.email);
 
@@ -97,7 +100,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
-          expiresIn: '15m',
+          expiresIn: '10s',
         },
       ),
       this.jwtService.signAsync(

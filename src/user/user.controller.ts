@@ -8,7 +8,8 @@ import {
   Patch,
   UseGuards,
 } from '@nestjs/common';
-import { TokenGuard } from 'src/auth/guards/token.guard';
+
+import { AccessTokenGuard } from 'src/auth/guards/accesstoken.guard';
 
 import { CreateUserDto } from './dto/createUserDto';
 import { User } from './schemas/user.schema';
@@ -23,7 +24,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AccessTokenGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findById(id);

@@ -6,12 +6,12 @@ import { UserModule } from 'src/user/user.module';
 
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { TokenStrategy } from './strategies/token.strategy';
-import { AuthCookieService } from './lib/authCookie.service';
+import { AccessTokenStrategy } from './strategies/accessToken.strategy';
+import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
 
 @Module({
   imports: [UserModule, PassportModule, JwtModule.register({})],
   controllers: [AuthController],
-  providers: [AuthService, TokenStrategy, AuthCookieService],
+  providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy],
 })
 export class AuthModule {}
